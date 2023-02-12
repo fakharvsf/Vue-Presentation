@@ -1,41 +1,46 @@
 
 <template>
-  <div class="cam-container">
-    <main class="camera-box" :class="{ flash: isShotPhoto }">
-      <div class="camera-shutter" :class="{ flash: isShotPhoto }"></div>
+  <main>
+    <div class="cam-container">
+      <main class="camera-box" :class="{ flash: isShotPhoto }">
+        <div class="camera-shutter" :class="{ flash: isShotPhoto }"></div>
 
-      <video
-        v-show="!isPhotoTaken"
-        ref="camera"
-        :width="450"
-        :height="337.5"
-        autoplay
-      ></video>
+        <video
+          v-show="!isPhotoTaken"
+          ref="camera"
+          :width="450"
+          :height="337.5"
+          autoplay
+        ></video>
 
-      <canvas
-        v-show="isPhotoTaken"
-        id="photoTaken"
-        ref="canvas"
-        :width="450"
-        :height="337.5"
-      ></canvas>
-    </main>
+        <canvas
+          v-show="isPhotoTaken"
+          id="photoTaken"
+          ref="canvas"
+          :width="450"
+          :height="337.5"
+        ></canvas>
+      </main>
 
-    <div class="camera-shoot">
-      <v-btn @click="takePhoto">
-        <img
-          src="https://img.icons8.com/material-outlined/50/000000/camera--v2.png"
-        />
-      </v-btn>
+      <div class="camera-shoot">
+        <v-btn @click="takePhoto">
+          <img
+            src="https://img.icons8.com/material-outlined/50/000000/camera--v2.png"
+          />
+        </v-btn>
+      </div>
+
+      <div v-if="isPhotoTaken" class="camera-download">
+        <v-btn @click="enlarge"> Enlarge </v-btn>
+      </div>
     </div>
-
-    <div v-if="isPhotoTaken" class="camera-download">
-      <v-btn @click="enlarge"> Enlarge </v-btn>
-    </div>
-  </div>
+  </main>
 </template>
 
 <script>
+// import useUserStore from "@/store/modal";
+// import { mapStores } from "pinia";
+// import { mapActions } from "pinia";
 export default {
   data() {
     return {
@@ -49,8 +54,17 @@ export default {
   mounted() {
     this.createCameraElement();
   },
+  // computed: {
+  //   ...mapStores(useUserStore),
+  //   // ...mapActions(useUserStore,getData ),
+  // },
   methods: {
     createCameraElement() {
+      // this.userStore;
+      console.log(
+        "🚀 ~ file: HelloWorld.vue:87 ~ createCameraElement ~ this.userStore",
+        this.userStore
+      );
       const constraints = (window.constraints = {
         audio: false,
         video: true,
