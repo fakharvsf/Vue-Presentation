@@ -4,11 +4,25 @@ import { defineStore } from "pinia";
 export const useModalStore = defineStore("modal", {
   state: () => ({
     isOpen: false,
+    products: null,
     //
   }),
   getters: {
     hiddenClass(state) {
       return !state.isOpen ? "hidden" : "";
+    },
+    getProductsGetter(state) {
+      return state.products;
+    },
+  },
+  actions: {
+    getProducts() {
+      fetch("https://dummyjson.com/products")
+        .then((res) => res.json())
+        .then((response) => {
+          this.products = response.products;
+          console.log(this.products);
+        });
     },
   },
 });
